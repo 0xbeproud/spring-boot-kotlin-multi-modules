@@ -1,11 +1,11 @@
-package com.beproud.core
+package com.beproud.core.util
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class CoreApplication
+class UtilApplication
 
 fun main(args: Array<String>) {
-    runApplication<CoreApplication>(*args)
+    runApplication<UtilApplication>(*args)
 }

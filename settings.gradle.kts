@@ -19,7 +19,10 @@ rootProject.name = "spring-boot-kotlin-multi-modules"
 
 include(":app:app-api")
 
-include(":core")
+include(":core:type")
+include(":core:util")
+
+include(":system")
 
 include(":domain:rds")
 include(":domain:redis")
