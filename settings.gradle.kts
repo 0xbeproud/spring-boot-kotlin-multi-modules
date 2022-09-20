@@ -18,3 +18,5 @@ rootProject.name = "spring-boot-kotlin-multi-modules"
 //}
 
 include(":app:app-api")
+
+include(":core")
