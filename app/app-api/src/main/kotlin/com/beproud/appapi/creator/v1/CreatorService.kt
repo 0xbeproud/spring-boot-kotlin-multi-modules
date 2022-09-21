@@ -6,8 +6,11 @@ import com.beproud.appapi.creator.v1.dto.GetCreatorResponse
 import com.beproud.core.util.wallet.WalletUtils
 import com.beproud.domain.rds.creator.Creator
 import com.beproud.domain.rds.creator.CreatorRepository
+import mu.KotlinLogging
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
+
+private val logger = KotlinLogging.logger {}
 
 @Service
 class CreatorService(private val creatorRepository: CreatorRepository) {
