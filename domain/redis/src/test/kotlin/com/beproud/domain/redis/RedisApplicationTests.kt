@@ -1,10 +1,10 @@
-package com.beproud.client
+package com.beproud.domain.redis
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class ClientApplicationTests {
+class RedisApplicationTests {
 
     @Test
     fun contextLoads() {

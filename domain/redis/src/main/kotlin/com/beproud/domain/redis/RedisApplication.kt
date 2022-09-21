@@ -1,11 +1,11 @@
-package com.beproud.client
+package com.beproud.domain.redis
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class ClientApplication
+class RedisApplication
 
 fun main(args: Array<String>) {
-    runApplication<ClientApplication>(*args)
+    runApplication<RedisApplication>(*args)
 }

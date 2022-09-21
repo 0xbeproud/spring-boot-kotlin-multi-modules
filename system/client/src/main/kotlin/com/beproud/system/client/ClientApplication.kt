@@ -1,11 +1,11 @@
-package com.beproud.rds
+package com.beproud.system.client
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class RdsApplication
+class ClientApplication
 
 fun main(args: Array<String>) {
-    runApplication<RdsApplication>(*args)
+    runApplication<ClientApplication>(*args)
 }

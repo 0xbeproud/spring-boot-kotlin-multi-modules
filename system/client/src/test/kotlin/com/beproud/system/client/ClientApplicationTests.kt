@@ -1,10 +1,10 @@
-package com.beproud.rds
+package com.beproud.system.client
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class RdsApplicationTests {
+class ClientApplicationTests {
 
     @Test
     fun contextLoads() {

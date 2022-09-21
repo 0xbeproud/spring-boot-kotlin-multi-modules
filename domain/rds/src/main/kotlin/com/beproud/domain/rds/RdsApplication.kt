@@ -1,11 +1,11 @@
-package com.beproud.redis
+package com.beproud.domain.rds
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class RedisApplication
+class RdsApplication
 
 fun main(args: Array<String>) {
-    runApplication<RedisApplication>(*args)
+    runApplication<RdsApplication>(*args)
 }
