@@ -8,10 +8,6 @@ plugins {
 }
 
 tasks {
-//    named<BootJar>("bootJar") {
-//        mainClass.set("com.beproud.appapi.AppApiAppcation")
-//    }
-
     withType<BootJar> {
         archiveClassifier.set("boot")
     }
@@ -29,6 +25,9 @@ configurations {
 
 dependencies {
     implementation(project(":domain:rds"))
+
+    implementation(project(":core:type"))
+    implementation(project(":core:util"))
 
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-web")

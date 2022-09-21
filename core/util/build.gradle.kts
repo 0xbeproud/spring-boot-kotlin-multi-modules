@@ -14,4 +14,5 @@ tasks {
 }
 
 dependencies {
+    implementation(project(":core:type"))
 }
