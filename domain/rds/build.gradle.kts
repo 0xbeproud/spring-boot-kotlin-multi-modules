@@ -18,7 +18,7 @@ tasks {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.flywaydb:flyway-core")
+//    implementation("org.flywaydb:flyway-core")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 
     runtimeOnly("com.h2database:h2")

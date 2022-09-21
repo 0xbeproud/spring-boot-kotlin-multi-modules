@@ -1,10 +1,8 @@
-package com.beproud.appapi
+package com.beproud
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-import org.springframework.context.annotation.ComponentScan
 
-@ComponentScan("com.beproud")
 @SpringBootApplication
 class AppApiApplication
 
