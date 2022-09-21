@@ -22,7 +22,7 @@ include(":app:app-api")
 include(":core:type")
 include(":core:util")
 
-include(":system")
+include(":system:client")
 
 include(":domain:rds")
 include(":domain:redis")

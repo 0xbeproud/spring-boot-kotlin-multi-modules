@@ -1,11 +1,11 @@
-package com.beproud.system
+package com.beproud.client
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class SystemApplication
+class ClientApplication
 
 fun main(args: Array<String>) {
-    runApplication<SystemApplication>(*args)
+    runApplication<ClientApplication>(*args)
 }
