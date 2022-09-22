@@ -1,14 +1,14 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("io.spring.dependency-management") version "1.0.13.RELEASE"
-    id("org.springframework.boot") version "2.7.3"
+    id("io.spring.dependency-management")
+    id("org.springframework.boot")
     id("org.jlleitschuh.gradle.ktlint") version "11.0.0" apply false
 
-    kotlin("jvm") version "1.6.21"
-    kotlin("kapt") version "1.6.21"
-    kotlin("plugin.spring") version "1.6.21" apply false
-    kotlin("plugin.jpa") version "1.6.21" apply false
+    kotlin("jvm")
+    kotlin("kapt")
+    kotlin("plugin.spring") apply false
+    kotlin("plugin.jpa") apply false
 }
 
 java.sourceCompatibility = JavaVersion.VERSION_17
