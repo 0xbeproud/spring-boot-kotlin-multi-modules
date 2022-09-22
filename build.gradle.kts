@@ -1,17 +1,16 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("io.spring.dependency-management")
-    id("org.springframework.boot")
-    id("org.jlleitschuh.gradle.ktlint") version "11.0.0" apply false
-
     kotlin("jvm")
-    kotlin("kapt")
+    kotlin("kapt") apply false
     kotlin("plugin.spring") apply false
     kotlin("plugin.jpa") apply false
-}
 
-java.sourceCompatibility = JavaVersion.VERSION_17
+    id("io.spring.dependency-management") apply false
+    id("org.springframework.boot") apply false
+    id("org.jlleitschuh.gradle.ktlint") version "11.0.0" apply false
+    id("org.flywaydb.flyway") version "9.3.1" apply false
+}
 
 repositories {
     mavenCentral()

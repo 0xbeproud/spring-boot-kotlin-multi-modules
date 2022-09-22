@@ -21,6 +21,8 @@ spring:
       validation-timeout: 10000
   flyway:
     enabled: false
+    baseline-on-migrate: false
+    baseline-version: 0
   h2:
     console:
       enabled: true
