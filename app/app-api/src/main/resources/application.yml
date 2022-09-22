@@ -1,6 +1,15 @@
+server:
+  port: ${PORT:8080}
+
 spring:
   application:
     name: "spring-api"
+  config:
+    import: "classpath:application-rds.yml"
+  profiles:
+    group:
+      h2: h2db
+      docker: dockerdb
 
 logging:
   level:
@@ -15,3 +24,5 @@ logging:
       security: error
     com:
       betheproud: info
+  file:
+    name: ./logs/app-api.log
