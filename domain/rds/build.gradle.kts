@@ -8,19 +8,19 @@ plugins {
     id("org.flywaydb.flyway")
 }
 
-//task<FlywayMigrateTask>("flywayMigrateDocker") {
+// task<FlywayMigrateTask>("flywayMigrateDocker") {
 //    driver = "com.mysql.cj.jdbc.Driver"
 //    url = "jdbc:mysql://127.0.0.1:3306/db?useUnicode=true&charaterEncoding=utf-8"
 //    user = "root"
 //    password = "root123"
-//}
+// }
 //
-//flyway {
+// flyway {
 //    driver = "com.mysql.cj.jdbc.Driver"
 //    url = "jdbc:mysql://127.0.0.1:3306/db?useUnicode=true&charaterEncoding=utf-8"
 //    user = "root"
 //    password = "root123"
-//}
+// }
 
 tasks {
     withType<BootJar> {

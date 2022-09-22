@@ -25,16 +25,23 @@ allprojects {
     }
 }
 
+allprojects {
+    apply {
+        plugin("org.jlleitschuh.gradle.ktlint")
+    }
+}
+
 subprojects {
     apply {
         plugin("kotlin")
-        plugin("kotlin-spring") //all-open
+        plugin("kotlin-spring")
         plugin("kotlin-kapt")
 //
         plugin("org.springframework.boot")
         plugin("io.spring.dependency-management")
         plugin("org.jetbrains.kotlin.plugin.spring")
         plugin("org.jlleitschuh.gradle.ktlint")
+        plugin("org.jlleitschuh.gradle.ktlint-idea")
     }
 
     dependencies {

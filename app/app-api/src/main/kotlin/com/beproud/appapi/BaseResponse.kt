@@ -6,9 +6,9 @@ import org.springframework.http.ResponseEntity
 class BaseResponse {
     companion object {
         fun <T> ok(data: T? = null): ResponseEntity<T> =
-                ResponseEntity.ok().body(data)
+            ResponseEntity.ok().body(data)
 
         fun <T> created(data: T? = null): ResponseEntity<T> =
-                ResponseEntity.status(HttpStatus.CREATED).body(data)
+            ResponseEntity.status(HttpStatus.CREATED).body(data)
     }
 }

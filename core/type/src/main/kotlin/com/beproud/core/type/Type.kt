@@ -1,4 +1,3 @@
 package com.beproud.core.type
 
-class Type {
-}
+class Type

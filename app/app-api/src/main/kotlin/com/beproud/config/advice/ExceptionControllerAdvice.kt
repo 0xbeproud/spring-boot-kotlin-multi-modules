@@ -15,5 +15,5 @@ class ExceptionControllerAdvice {
 
     @ExceptionHandler(Exception::class)
     fun handleException(ex: Exception) =
-            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ErrorResponse(ex.message!!))
+        ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ErrorResponse(ex.message!!))
 }

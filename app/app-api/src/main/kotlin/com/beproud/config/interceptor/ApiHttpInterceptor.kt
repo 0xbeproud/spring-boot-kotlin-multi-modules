@@ -11,7 +11,7 @@ private val logger = KotlinLogging.logger {}
 
 @Component
 class ApiHttpInterceptor(
-        private val environment: Environment
+    private val environment: Environment
 ) : HandlerInterceptor {
 
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {

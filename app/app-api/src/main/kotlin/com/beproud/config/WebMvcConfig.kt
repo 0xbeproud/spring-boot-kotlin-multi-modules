@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 @Configuration
 class WebMvcConfig(
-        private val apiHttpInterceptor: ApiHttpInterceptor
+    private val apiHttpInterceptor: ApiHttpInterceptor
 ) : WebMvcConfigurer {
     override fun addInterceptors(registry: InterceptorRegistry) {
         registry.addInterceptor(apiHttpInterceptor)

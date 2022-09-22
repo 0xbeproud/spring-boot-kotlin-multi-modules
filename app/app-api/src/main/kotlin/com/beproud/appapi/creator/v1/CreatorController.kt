@@ -8,18 +8,16 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
-
 @RestController
 @RequestMapping("/api/v1/creators")
 class CreatorController(
-        private val creatorService: CreatorService
+    private val creatorService: CreatorService
 ) {
     @GetMapping
     fun getGreator(
-            @RequestParam(required = true, value = "walletAddress") walletAddress: String
+        @RequestParam(required = true, value = "walletAddress") walletAddress: String
     ): ResponseEntity<GetCreatorResponse> = BaseResponse.ok(this.creatorService.getCreator(walletAddress = walletAddress))
 
     @PostMapping
     fun createCreator(@Valid @RequestBody request: CreateCreatorRequest): ResponseEntity<CreateCreatorResponse> = BaseResponse.ok(this.creatorService.createCreator(request))
-
 }
