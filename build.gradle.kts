@@ -2,12 +2,12 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm")
-    kotlin("kapt") apply false
+    kotlin("kapt")
     kotlin("plugin.spring") apply false
     kotlin("plugin.jpa") apply false
 
-    id("io.spring.dependency-management") apply false
     id("org.springframework.boot") apply false
+    id("io.spring.dependency-management") apply false
     id("org.jlleitschuh.gradle.ktlint") version "11.0.0" apply false
     id("org.flywaydb.flyway") version "9.3.1" apply false
 }
@@ -29,7 +29,8 @@ subprojects {
     apply {
         plugin("kotlin")
         plugin("kotlin-spring") //all-open
-
+        plugin("kotlin-kapt")
+//
         plugin("org.springframework.boot")
         plugin("io.spring.dependency-management")
         plugin("org.jetbrains.kotlin.plugin.spring")
@@ -38,16 +39,16 @@ subprojects {
 
     dependencies {
 
-        // Kotlin Standard Library
         implementation(kotlin("reflect"))
         implementation(kotlin("stdlib-jdk8"))
 
-
+//        implementation("org.springframework.boot:spring-boot-starter")
         annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+        kapt("org.springframework.boot:spring-boot-configuration-processor")
 
 //        testImplementation("io.mockk:mockk:$mockkVersion")
 //        testImplementation("io.strikt:strikt-core:$striktVersion")
-        testImplementation("com.ninja-squad:springmockk:3.1.0")
+//        testImplementation("com.ninja-squad:springmockk:3.1.0")
         testImplementation("org.springframework.boot:spring-boot-starter-test") {
             exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
             exclude(module = "mockito-core")
