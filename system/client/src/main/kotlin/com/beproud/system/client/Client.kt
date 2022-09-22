@@ -1,4 +1,3 @@
 package com.beproud.system.client
 
-class Client {
-}
+class Client
