@@ -25,12 +25,6 @@ allprojects {
     }
 }
 
-allprojects {
-    apply {
-        plugin("org.jlleitschuh.gradle.ktlint")
-    }
-}
-
 subprojects {
     apply {
         plugin("kotlin")
