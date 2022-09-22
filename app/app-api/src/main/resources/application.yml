@@ -4,6 +4,14 @@ spring:
 
 logging:
   level:
-    org:
-      springframework:
-        web: DEBUG
+    jdbc:
+      sqltiming: 'off'
+      audit: 'off'
+      connection: 'off'
+      resultset: 'off'
+      resultsettable: 'off'
+      sqlonly: info
+    org.springframework:
+      security: error
+    com:
+      betheproud: info

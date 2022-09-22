@@ -19,11 +19,12 @@ tasks {
 dependencies {
     api("org.springframework.boot:spring-boot-starter-data-jpa")
 //    implementation("org.flywaydb:flyway-core")
+    implementation("org.flywaydb:flyway-mysql")
 
     implementation("com.h2database:h2")
 
     runtimeOnly("com.h2database:h2")
-//    runtimeOnly("mysql:mysql-connector-java")
+    runtimeOnly("mysql:mysql-connector-java")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
     testImplementation("com.h2database:h2")
