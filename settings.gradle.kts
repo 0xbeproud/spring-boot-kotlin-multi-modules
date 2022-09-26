@@ -17,6 +17,7 @@ pluginManagement {
 }
 
 include(":app:app-api")
+include(":app:app-batch")
 
 include(":core:type")
 include(":core:util")
