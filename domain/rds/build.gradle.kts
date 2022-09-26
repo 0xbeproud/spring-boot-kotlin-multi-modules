@@ -10,12 +10,12 @@ plugins {
 }
 
 
-flyway {
-    driver = "com.mysql.cj.jdbc.Driver"
-    url = "jdbc:mysql://127.0.0.1:3306/db"
-    user = "root"
-    password = "root123"
-}
+//flyway {
+//    driver = "com.mysql.cj.jdbc.Driver"
+//    url = "jdbc:mysql://127.0.0.1:3306/db"
+//    user = "root"
+//    password = "root123"
+//}
 
 task<FlywayMigrateTask>("flywayMigrateDocker") {
     driver = "com.mysql.cj.jdbc.Driver"
