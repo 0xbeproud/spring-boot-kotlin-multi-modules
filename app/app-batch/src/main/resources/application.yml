@@ -1,15 +1,15 @@
-server:
-    port: ${PORT:8080}
-
 spring:
     application:
-        name: "spring-api"
+        name: app-batch
     config:
         import: "classpath:application-rds.yml"
     profiles:
         group:
             h2: h2db
             docker: dockerdb
+    batch:
+        jdbc:
+            initialize-schema: never
 
 logging:
     level:
@@ -25,4 +25,4 @@ logging:
         com:
             betheproud: info
     file:
-        name: ./logs/app-api.log
+        name: ./logs/app-batch.log
