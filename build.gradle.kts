@@ -9,7 +9,7 @@ plugins {
     id("org.springframework.boot") apply false
     id("io.spring.dependency-management") apply false
     id("org.jlleitschuh.gradle.ktlint") version "11.0.0" apply false
-    id("org.flywaydb.flyway") version "9.3.1" apply false
+    id("org.flywaydb.flyway") version "8.2.0" apply false
 }
 
 repositories {
