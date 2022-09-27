@@ -2,9 +2,6 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     id("org.springframework.boot")
-//    id("io.spring.dependency-management") version "1.0.13.RELEASE"
-//    kotlin("jvm") version "1.6.21"
-//    kotlin("plugin.spring") version "1.6.21"
     kotlin("plugin.jpa")
 }
 
@@ -26,7 +23,7 @@ configurations {
 
 dependencies {
     implementation(project(":domain:rds"))
-//    implementation(project(":domain:redis"))
+    implementation(project(":domain:redis"))
 
     implementation(project(":core:type"))
     implementation(project(":core:util"))

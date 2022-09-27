@@ -1,8 +1,8 @@
 package com.beproud.appapi.creator.v1.dto
 
-import com.beproud.core.type.wallet.WalletType
 import com.beproud.domain.rds.creator.Creator
+import java.io.Serializable
 
-data class GetCreatorResponse(val walletType: WalletType, val walletAddress: String)
+data class GetCreatorResponse(val creator: Creator?) : Serializable
 
 data class CreateCreatorResponse(val creator: Creator)

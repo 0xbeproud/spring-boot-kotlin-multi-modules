@@ -8,8 +8,12 @@ spring:
         import: "classpath:application-rds.yml"
     profiles:
         group:
-            h2: h2db
-            docker: dockerdb
+            h2: h2-db, docker-redis
+            docker: docker-db, docker-redis
+    main:
+        allow-bean-definition-overriding: true
+    cache:
+        type: redis
 
 logging:
     level:

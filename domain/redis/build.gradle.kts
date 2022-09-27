@@ -15,4 +15,6 @@ tasks {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("org.apache.commons:commons-pool2:2.11.1")
+
 }

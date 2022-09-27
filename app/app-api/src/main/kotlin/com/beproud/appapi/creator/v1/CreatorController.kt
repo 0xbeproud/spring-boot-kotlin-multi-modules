@@ -25,6 +25,7 @@ class CreatorController(
         BaseResponse.ok(this.creatorService.getCreator(walletAddress = walletAddress))
 
     @PostMapping
-    fun createCreator(@Valid @RequestBody request: CreateCreatorRequest): ResponseEntity<CreateCreatorResponse> =
-        BaseResponse.ok(this.creatorService.createCreator(request))
+    fun createCreator(
+        @Valid @RequestBody request: CreateCreatorRequest
+    ): ResponseEntity<CreateCreatorResponse> = BaseResponse.ok(this.creatorService.createCreator(request))
 }

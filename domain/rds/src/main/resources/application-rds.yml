@@ -25,7 +25,7 @@ spring:
 spring:
     config:
         activate:
-            on-profile: h2db
+            on-profile: h2-db
     jpa:
         hibernate:
             ddl-auto: create
@@ -48,7 +48,7 @@ spring:
 spring:
     config:
         activate:
-            on-profile: dockerdb
+            on-profile: docker-db
     jpa:
         hibernate:
             ddl-auto: validate
