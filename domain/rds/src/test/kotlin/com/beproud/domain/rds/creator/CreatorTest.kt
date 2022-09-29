@@ -25,7 +25,7 @@ internal class CreatorTest {
     lateinit var entityManager: TestEntityManager
 
     @field:Autowired
-    lateinit var creatorRedisRepository: CreatorRedisRepository
+    lateinit var creatorRepository: CreatorRepository
 
     @BeforeEach
     fun setUp() {

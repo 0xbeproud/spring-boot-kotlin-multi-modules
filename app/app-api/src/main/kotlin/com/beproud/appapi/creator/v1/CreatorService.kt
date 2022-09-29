@@ -13,21 +13,21 @@ private val logger = KotlinLogging.logger {}
 
 @Service
 class CreatorService(
-    private val creatorRdsService: CreatorRdsService,
+    private val creatorDomainService: CreatorDomainService,
 ) {
 
     @Cacheable(key = "#walletAddress", value = ["creator"])
     fun getCreator(walletAddress: String): GetCreatorResponse {
         logger.info { "walletAddress: $walletAddress" }
         TimeUnit.SECONDS.sleep(3)
-        val creator = creatorRdsService.getCreator(walletAddress)
+        val creator = creatorDomainService.getCreator(walletAddress)
         logger.info { creator }
         return GetCreatorResponse(creator)
     }
 
     @Transactional
     fun createCreator(request: CreateCreatorRequest): CreateCreatorResponse {
-        val creator = creatorRdsService.createCreator(walletAddress = request.walletAddress)
+        val creator = creatorDomainService.createCreator(walletAddress = request.walletAddress)
         return CreateCreatorResponse(creator)
     }
 }
