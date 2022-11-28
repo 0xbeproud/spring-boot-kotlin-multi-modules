@@ -3,7 +3,7 @@ server:
 
 spring:
     application:
-        name: "spring-api"
+        name: "app-api"
     config:
         import: "classpath:application-rds.yml"
     profiles:
