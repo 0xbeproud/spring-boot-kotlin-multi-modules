@@ -1,4 +1,4 @@
-package com.beproud.appauth
+package com.beproud
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest

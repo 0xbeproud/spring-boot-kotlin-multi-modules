@@ -11,6 +11,7 @@
 .
 ├── app
 │   ├── app-api
+│   ├── app-auth
 │   └── app-batch
 ├── core
 │   ├── type
@@ -23,15 +24,32 @@
 
 ```
 
+## History 
+
 - multi module 설정
-- :app:app-api 샘플 구현
-- :app:app-batch 샘플 구현
-- :domain:rds 연동
-    - h2 연동 [참고](domain/rds/src/main/resources/application-rds.yml)
-- :domain:redis 연동
-- :app:app-auth 모듈 추가
-
-- docker-compose 설정
+    - :app:app-api 샘플 구현
+    - :app:app-batch 샘플 구현
+    - :domain:rds 연동 [참고](domain/rds/src/main/resources/application-rds.yml)
+    - :domain:redis 연동
+    - :app:app-auth 모듈 추가(authorization server)
 
 
-- spring active profile: h2, docker
+- infra
+    - docker-compose 설정
+
+
+## Active profile 
+- available: h2, docker [참고](app/app-api/src/main/resources/application.yml)
+
+```text
+spring:
+    application:
+        name: "app-api"
+    config:
+        import: "classpath:application-rds.yml"
+    profiles:
+        group:
+            h2: h2-db, docker-redis
+            docker: docker-db, docker-redis
+```
+

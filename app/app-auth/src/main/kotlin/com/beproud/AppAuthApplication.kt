@@ -1,4 +1,4 @@
-package com.beproud.appauth
+package com.beproud
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
