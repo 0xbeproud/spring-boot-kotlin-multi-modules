@@ -28,13 +28,14 @@ dependencies {
     implementation(project(":core:type"))
     implementation(project(":core:util"))
 
-    implementation(project(":system:client"))
-
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-security")
+//    implementation("org.springframework.security:spring-security-jwt")
+//    implementation("org.springframework.security.oauth:spring-security-oauth2")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.springframework.boot:spring-boot-starter-validation")
+
 
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.0")
 }
