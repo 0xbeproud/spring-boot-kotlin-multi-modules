@@ -27,4 +27,11 @@
 - :app:app-api 샘플 구현
 - :app:app-batch 샘플 구현
 - :domain:rds 연동
+    - h2 연동 [참고](domain/rds/src/main/resources/application-rds.yml)
 - :domain:redis 연동
+- :app:app-auth 모듈 추가
+
+- docker-compose 설정
+
+
+- spring active profile: h2, docker
