@@ -1,4 +1,4 @@
-package com.beproud.domain.rds.creator
+package com.beproud.domain.rds.user
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
@@ -20,12 +20,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @DisplayName("Creator 도메인 테스트")
-internal class CreatorTest {
+internal class UserTest {
     @field:Autowired
     lateinit var entityManager: TestEntityManager
 
     @field:Autowired
-    lateinit var creatorRepository: CreatorRepository
+    lateinit var userRepository: UserRepository
 
     @BeforeEach
     fun setUp() {
@@ -38,10 +38,10 @@ internal class CreatorTest {
         val walletAddress = "walletAddress"
 
         // when
-        val creator = this.entityManager.persistAndFlush(Creator.create(walletAddress = walletAddress))
+        val user = this.entityManager.persistAndFlush(User.create(walletAddress = walletAddress))
 
         // then
-        with(creator) {
+        with(user) {
             assertThat(this.walletAddress).isNotNull
             assertThat(this.walletAddress).isEqualTo(walletAddress)
         }

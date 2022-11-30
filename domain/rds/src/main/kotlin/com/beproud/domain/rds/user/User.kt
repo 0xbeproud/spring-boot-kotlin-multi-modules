@@ -1,4 +1,4 @@
-package com.beproud.domain.rds.creator
+package com.beproud.domain.rds.user
 
 import com.beproud.domain.rds.BaseLocalDateTime
 import java.io.Serializable
@@ -11,7 +11,7 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "creator")
-class Creator : Serializable, BaseLocalDateTime() {
+class User : Serializable, BaseLocalDateTime() {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,9 +20,12 @@ class Creator : Serializable, BaseLocalDateTime() {
     @Column(name = "wallet_address", nullable = false)
     lateinit var walletAddress: String
 
+    @Column(name = "roles", nullable = false)
+    lateinit var roles: String
+
     companion object {
-        fun create(walletAddress: String): Creator {
-            return Creator().apply {
+        fun create(walletAddress: String): User {
+            return User().apply {
                 this.walletAddress = walletAddress
             }
         }
