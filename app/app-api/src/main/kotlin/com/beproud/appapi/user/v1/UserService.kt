@@ -8,6 +8,9 @@ import java.util.concurrent.TimeUnit
 import javax.transaction.Transactional
 
 import mu.KotlinLogging
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.userdetails.UserDetails
+import java.security.Principal
 
 private val logger = KotlinLogging.logger {}
 
@@ -16,10 +19,10 @@ class UserService(
     private val userDomainService: UserDomainService,
 ) {
     //    @Cacheable(key = "#walletAddress", value = ["creator"])
-    fun getUser(walletAddress: String): GetUserResponse {
-        logger.info { "walletAddress: $walletAddress" }
-        TimeUnit.SECONDS.sleep(3)
-        val user = userDomainService.getUser(walletAddress)
+    fun getUser(authentication: Authentication): GetUserResponse {
+        val userDetails = authentication.principal as UserDetails
+        logger.info("getUser: ${userDetails.username}")
+        val user = userDomainService.getUser(userDetails.username)
         logger.info { user }
         return GetUserResponse(user)
     }

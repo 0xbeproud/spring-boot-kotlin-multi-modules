@@ -25,6 +25,7 @@ class UserDomainService(
         return this.userRepository.save(User.create(walletAddress = walletAddress))
     }
 
+    @Transactional
     fun createIfNotExist(request: ConnectRequest): User {
         return userRepository.findByWalletAddress(request.walletAddress) ?:
             userRepository.save(User.create(walletAddress = request.walletAddress))

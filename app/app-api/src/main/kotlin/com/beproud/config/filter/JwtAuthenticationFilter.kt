@@ -35,16 +35,6 @@ class JwtAuthenticationFilter(
                 authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
                 SecurityContextHolder.getContext().authentication = authentication
             }
-//            val jwt = jwtTokenProvider.getJwt(request) ?: throw java.lang.Exception("error")
-////            logger.info { jwt }
-//            if (StringUtils.hasText(jwt) && jwtTokenProvider.validateToken(jwt)) {
-//                val walletAddress: String = jwtTokenProvider.getWalletAddress(jwt)
-//                val userDetails: UserDetails = customUserDetailsService.loadUserByUsername(walletAddress)
-//                val authentication =
-//                    UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)
-//                authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
-//                SecurityContextHolder.getContext().authentication = authentication
-//            }
         } catch (ex: Exception) {
             logger.error("Could not set user authentication in security context", ex)
         }

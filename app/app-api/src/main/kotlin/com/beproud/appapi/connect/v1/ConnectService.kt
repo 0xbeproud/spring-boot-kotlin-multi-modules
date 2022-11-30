@@ -19,10 +19,9 @@ class ConnectService(
     @Transactional
     fun connect(request: ConnectRequest): ConnectResponse {
         val user = userDomainService.createIfNotExist(request)
-
-        logger.info("user: ${user.walletAddress}")
+        logger.info("connect user: ${user.walletAddress}")
         val token = jwtTokenProvider.generateToken(walletAddress = request.walletAddress)
-        logger.info("generate token: $token")
-        return ConnectResponse(token)
+        val refreshToken = jwtTokenProvider.generateRefreshToken()
+        return ConnectResponse(token, refreshToken)
     }
 }
