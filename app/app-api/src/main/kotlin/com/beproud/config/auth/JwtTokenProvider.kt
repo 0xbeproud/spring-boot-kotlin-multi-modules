@@ -1,6 +1,5 @@
 package com.beproud.config.auth
 
-import com.beproud.appapi.user.UserPrincipal
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
@@ -9,12 +8,12 @@ import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.UnsupportedJwtException
 import io.jsonwebtoken.security.Keys
 import mu.KotlinLogging
-import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component
+import org.springframework.util.StringUtils
 import java.nio.charset.StandardCharsets
 import java.security.Key
-import java.sql.Timestamp
-import java.time.LocalDateTime
+import java.util.*
+import javax.servlet.http.HttpServletRequest
 
 
 private val logger = KotlinLogging.logger {}
@@ -24,17 +23,16 @@ class JwtTokenProvider {
     private val AUTHORITIES_KEY = "auth"
     private val BEARER_TYPE = "Bearer"
 
-    private val jwtSecret: String = "secret"
-    private val jwtExpirationInSeconds = 816400L
+    private val jwtSecret: String =
+        "secret1234567890abcdefghijklmnopqrstuvsecret1234567890abcdefghijklmnopqrstuvsecret1234567890abcdefghijklmnopqrstuvsecret1234567890abcdefghijklmnopqrstuv"
+    private val jwtExpirationInSeconds = 1000L * 60 * 60
 
-    fun generateToken(authentication: Authentication): String {
-        val userPrincipal = authentication.principal as UserPrincipal
-        val now = LocalDateTime.now()
-        val expiryDate = now.plusSeconds(jwtExpirationInSeconds)
+    fun generateToken(walletAddress: String): String {
+        val now = Date()
         return Jwts.builder()
-            .setSubject(userPrincipal.user.id.toString())
-            .setIssuedAt(Timestamp.valueOf(now))
-            .setExpiration(Timestamp.valueOf(expiryDate))
+            .setClaims(Jwts.claims().setSubject(walletAddress))
+            .setIssuedAt(now)
+            .setExpiration(Date(now.time + jwtExpirationInSeconds))
             .signWith(getSignKey(), SignatureAlgorithm.HS512)
             .compact()
     }
@@ -43,20 +41,20 @@ class JwtTokenProvider {
         return Keys.hmacShaKeyFor(jwtSecret.toByteArray(StandardCharsets.UTF_8))
     }
 
-    fun getUserIdFromJWT(token: String): Long {
+    fun getWalletAddress(token: String): String {
         val claims = Jwts.parserBuilder()
             .setSigningKey(getSignKey())
             .build()
             .parseClaimsJws(token)
             .body
 
-        return claims.subject.toLong()
+        return claims.subject
     }
 
-    fun validateToken(authToken: String): Boolean {
+    fun validateToken(token: String): Boolean {
         try {
-            Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(authToken)
-            return true
+            val claims = Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token)
+            return !claims.body.expiration.before(Date())
         } catch (ex: MalformedJwtException) {
             logger.error("Invalid JWT token")
         } catch (ex: ExpiredJwtException) {
@@ -69,11 +67,5 @@ class JwtTokenProvider {
         return false
     }
 
-    private fun parseClaims(accessToken: String): Claims {
-        return try {
-            Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(accessToken).body
-        } catch (e: ExpiredJwtException) { // 만료된 토큰이 더라도 일단 파싱을 함
-            e.claims
-        }
-    }
+    fun resolveToken(request: HttpServletRequest): String? = request.getHeader("X-AUTH-TOKEN")
 }

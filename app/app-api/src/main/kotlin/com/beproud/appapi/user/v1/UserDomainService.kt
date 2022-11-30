@@ -1,5 +1,6 @@
 package com.beproud.appapi.user.v1
 
+import com.beproud.appapi.connect.v1.dto.ConnectRequest
 import com.beproud.domain.rds.user.User
 import com.beproud.domain.rds.user.UserRepository
 import org.springframework.data.repository.findByIdOrNull
@@ -22,5 +23,10 @@ class UserDomainService(
     @Transactional
     fun createCreator(walletAddress: String): User {
         return this.userRepository.save(User.create(walletAddress = walletAddress))
+    }
+
+    fun createIfNotExist(request: ConnectRequest): User {
+        return userRepository.findByWalletAddress(request.walletAddress) ?:
+            userRepository.save(User.create(walletAddress = request.walletAddress))
     }
 }

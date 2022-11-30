@@ -16,23 +16,35 @@ import javax.servlet.http.HttpServletResponse
 private val logger = KotlinLogging.logger {}
 
 class JwtAuthenticationFilter(
-    private val customUserDetailsService: CustomUserDetailsService, private val tokenProvider: JwtTokenProvider
+    private val customUserDetailsService: CustomUserDetailsService,
+    private val jwtTokenProvider: JwtTokenProvider
 ) : OncePerRequestFilter() {
     override fun doFilterInternal(
         request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain
     ) {
         try {
-            logger.info("JwtAuthenticationFilter")
+            val token = jwtTokenProvider.resolveToken(request)
+            logger.info("token: $token")
 
-            val jwt = getJwtFromRequest(request) ?: throw java.lang.Exception("error")
-            if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
-                val userId: Long = tokenProvider.getUserIdFromJWT(jwt)
-                val userDetails: UserDetails = customUserDetailsService.loadUserById(userId)
+            if (token != null && jwtTokenProvider.validateToken(token)) {
+                val walletAddress = jwtTokenProvider.getWalletAddress(token)
+                logger.info("walletAddress: $walletAddress")
+                val userDetails: UserDetails = customUserDetailsService.loadUserByUsername(walletAddress)
                 val authentication =
-                    UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities())
-                authentication.setDetails(WebAuthenticationDetailsSource().buildDetails(request))
+                    UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)
+                authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
                 SecurityContextHolder.getContext().authentication = authentication
             }
+//            val jwt = jwtTokenProvider.getJwt(request) ?: throw java.lang.Exception("error")
+////            logger.info { jwt }
+//            if (StringUtils.hasText(jwt) && jwtTokenProvider.validateToken(jwt)) {
+//                val walletAddress: String = jwtTokenProvider.getWalletAddress(jwt)
+//                val userDetails: UserDetails = customUserDetailsService.loadUserByUsername(walletAddress)
+//                val authentication =
+//                    UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)
+//                authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
+//                SecurityContextHolder.getContext().authentication = authentication
+//            }
         } catch (ex: Exception) {
             logger.error("Could not set user authentication in security context", ex)
         }
@@ -40,10 +52,5 @@ class JwtAuthenticationFilter(
         filterChain.doFilter(request, response)
     }
 
-    private fun getJwtFromRequest(request: HttpServletRequest): String? {
-        val bearerToken = request.getHeader("Authorization")
-        return if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            bearerToken.substring(7, bearerToken.length)
-        } else null
-    }
+
 }

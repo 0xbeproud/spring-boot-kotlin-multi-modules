@@ -14,6 +14,14 @@ spring:
         allow-bean-definition-overriding: true
     cache:
         type: redis
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+                    issuer-uri: "http://auth-server:9090"
+app:
+    jwt:
+        secret-key: 123
 
 logging:
     level:
@@ -24,8 +32,9 @@ logging:
             resultset: 'off'
             resultsettable: 'off'
             sqlonly: info
-        org.springframework:
-            security: error
+        org.springframework.web: INFO
+        org.springframework.security: INFO
+        org.springframework.security.oauth2: INFO
         com:
             betheproud: info
     file:

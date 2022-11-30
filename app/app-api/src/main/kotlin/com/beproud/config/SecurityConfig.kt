@@ -7,19 +7,15 @@ import mu.KotlinLogging
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.core.annotation.Order
-import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer
 import org.springframework.security.config.http.SessionCreationPolicy
-import org.springframework.security.crypto.factory.PasswordEncoderFactories
-import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+
 
 private val logger = KotlinLogging.logger {}
 
@@ -33,35 +29,43 @@ class SecurityConfig(
     private val tokenProvider: JwtTokenProvider
 ) {
 
-    @Bean
-    fun passwordEncoder(): PasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder()
+//    @Bean
+//    fun passwordEncoder(): PasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder()
+
+//    @Bean
+//    @Order(0)
+//    @Throws(Exception::class)
+//    fun resources(http: HttpSecurity): SecurityFilterChain? {
+//        return http.requestMatchers { matchers: HttpSecurity.RequestMatcherConfigurer ->
+//            matchers.antMatchers(HttpMethod.GET, "/api/v1/creators")
+//        }.authorizeHttpRequests { authorize ->
+//            authorize.anyRequest().permitAll()
+//        }.requestCache { it.disable() }.securityContext { it.disable() }.sessionManagement { it.disable() }.build()
+//    }
 
     @Bean
-    @Order(0)
     @Throws(Exception::class)
-    fun resources(http: HttpSecurity): SecurityFilterChain? {
-        return http.requestMatchers { matchers: HttpSecurity.RequestMatcherConfigurer ->
-            matchers.antMatchers(HttpMethod.GET, "/api/v1/creators")
-        }.authorizeHttpRequests { authorize ->
-            authorize.anyRequest().permitAll()
-        }.requestCache { it.disable() }.securityContext { it.disable() }.sessionManagement { it.disable() }.build()
-    }
-
-    @Bean
-    @Throws(Exception::class)
-    fun securityFilterChain(http: HttpSecurity): SecurityFilterChain =
-        http.csrf { it.disable() }
+    fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
+        http
+            .httpBasic { it.disable() }
+            .csrf { it.disable() }
             .logout { it.disable() }
-            .authenticationProvider(authenticationProvider())
+            .formLogin { it.disable() }
+//            .authenticationProvider(authenticationProvider())
 //            .addFilterBefore(jwtAuthenticationFilter(userDetailsService,))
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
-            .authorizeHttpRequests {
-                it.antMatchers(HttpMethod.GET, "/api/v1/users").permitAll()
+            .authorizeRequests {
+//                it.anyRequest().permitAll()
+                it.antMatchers("/api/v1/connect/**").permitAll()
                     .anyRequest().authenticated()
             }
-            .formLogin().disable()
-            .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter::class.java)
-            .build()
+            .addFilterBefore(
+                JwtAuthenticationFilter(userDetailsService, tokenProvider),
+                UsernamePasswordAuthenticationFilter::class.java
+            )
+//            .oauth2ResourceServer().jwt()
+        return http.build()
+    }
 
     @Bean
     fun webSecurityCustomizer(): WebSecurityCustomizer {
@@ -70,13 +74,13 @@ class SecurityConfig(
         }
     }
 
-    @Bean
-    fun authenticationProvider(): DaoAuthenticationProvider {
-        val authProvider = DaoAuthenticationProvider()
-        authProvider.setUserDetailsService(userDetailsService)
-        authProvider.setPasswordEncoder(passwordEncoder())
-        return authProvider
-    }
+//    @Bean
+//    fun authenticationProvider(): DaoAuthenticationProvider {
+//        val authProvider = DaoAuthenticationProvider()
+//        authProvider.setUserDetailsService(userDetailsService)
+//        authProvider.setPasswordEncoder(passwordEncoder())
+//        return authProvider
+//    }
 
     @Bean
     @Throws(java.lang.Exception::class)
@@ -84,9 +88,38 @@ class SecurityConfig(
         return authConfiguration.authenticationManager
     }
 
-    @Bean
-    fun jwtAuthenticationFilter(): JwtAuthenticationFilter {
-        return JwtAuthenticationFilter(userDetailsService, tokenProvider)
-    }
+    //
+//    @Bean
+//    fun jwtAuthenticationConverter(): JwtAuthenticationConverter? {
+//        val grantedAuthoritiesConverter = JwtGrantedAuthoritiesConverter()
+//
+//        //change the prefix
+//        grantedAuthoritiesConverter.setAuthorityPrefix("ROLE_")
+//
+//        //change the default claim name. default claim is "scope", "scp"
+//        grantedAuthoritiesConverter.setAuthoritiesClaimName("name")
+//        val jwtAuthenticationConverter = JwtAuthenticationConverter()
+//        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter)
+//        return jwtAuthenticationConverter
+//    }
+//
+//    /**
+//     * Asisgn a custom JwtDecoder with RestOperation instance to provide a custom timeout.
+//     */
+//    @Bean
+//    fun jwtDecoder(restTemplateBuilder: RestTemplateBuilder): JwtDecoder? {
+//        val restOperations = restTemplateBuilder
+//            .setConnectTimeout(Duration.ofSeconds(90))
+//            .setReadTimeout(Duration.ofSeconds(90))
+//            .build()
+//        val nimbusJwtDecoder = NimbusJwtDecoder
+//            .withJwkSetUri(jwkSetUri)
+//            .restOperations(restOperations)
+//            .build()
+//        val clockSkew: OAuth2TokenValidator<Jwt> =
+//            DelegatingOAuth2TokenValidator<AbstractOAuth2Token>(JwtTimestampValidator(Duration.ofSeconds(60)))
+//        nimbusJwtDecoder.setJwtValidator(clockSkew)
+//        return nimbusJwtDecoder
+//    }
 
 }

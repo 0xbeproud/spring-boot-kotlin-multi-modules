@@ -27,6 +27,7 @@ class User : Serializable, BaseLocalDateTime() {
         fun create(walletAddress: String): User {
             return User().apply {
                 this.walletAddress = walletAddress
+                this.roles = "USER"
             }
         }
     }

@@ -22,10 +22,10 @@ class UserController(
     fun getUser(
         @RequestParam(required = true, value = "walletAddress") walletAddress: String
     ): ResponseEntity<GetUserResponse> =
-        BaseResponse.ok(this.userService.getCreator(walletAddress = walletAddress))
+        BaseResponse.ok(this.userService.getUser(walletAddress = walletAddress))
 
     @PostMapping
     fun createUser(
         @Valid @RequestBody request: CreateUserRequest
-    ): ResponseEntity<CreateUserResponse> = BaseResponse.ok(this.userService.createCreator(request))
+    ): ResponseEntity<CreateUserResponse> = BaseResponse.ok(this.userService.createUser(request))
 }
