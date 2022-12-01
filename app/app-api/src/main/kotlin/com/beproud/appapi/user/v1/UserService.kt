@@ -4,13 +4,11 @@ import com.beproud.appapi.user.v1.dto.CreateUserRequest
 import com.beproud.appapi.user.v1.dto.CreateUserResponse
 import com.beproud.appapi.user.v1.dto.GetUserResponse
 import org.springframework.stereotype.Service
-import java.util.concurrent.TimeUnit
 import javax.transaction.Transactional
 
 import mu.KotlinLogging
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.UserDetails
-import java.security.Principal
 
 private val logger = KotlinLogging.logger {}
 
@@ -18,7 +16,6 @@ private val logger = KotlinLogging.logger {}
 class UserService(
     private val userDomainService: UserDomainService,
 ) {
-    //    @Cacheable(key = "#walletAddress", value = ["creator"])
     fun getUser(authentication: Authentication): GetUserResponse {
         val userDetails = authentication.principal as UserDetails
         logger.info("getUser: ${userDetails.username}")

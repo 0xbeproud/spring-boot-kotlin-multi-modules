@@ -23,7 +23,7 @@ configurations {
 
 dependencies {
     implementation(project(":domain:rds"))
-    implementation(project(":domain:redis"))
+//    implementation(project(":domain:redis"))
 
     implementation(project(":core:type"))
     implementation(project(":core:util"))
@@ -33,12 +33,12 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.springframework.boot:spring-boot-starter-validation")
 
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.0")
+    implementation("org.springdoc:springdoc-openapi-ui:1.6.13")
 
     implementation("io.jsonwebtoken:jjwt-api:0.11.5")
     implementation("io.jsonwebtoken:jjwt-impl:0.11.5")

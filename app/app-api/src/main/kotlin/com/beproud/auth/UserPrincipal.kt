@@ -1,4 +1,4 @@
-package com.beproud.appapi.user
+package com.beproud.auth
 
 import com.beproud.domain.rds.user.User
 import org.springframework.security.core.GrantedAuthority

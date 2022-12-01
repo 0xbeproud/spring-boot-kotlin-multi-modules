@@ -1,13 +1,12 @@
 package com.beproud.config.filter
 
-import com.beproud.appapi.user.CustomUserDetailsService
-import com.beproud.config.auth.JwtTokenProvider
+import com.beproud.auth.CustomUserDetailsService
+import com.beproud.auth.JwtTokenProvider
 import mu.KotlinLogging
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
-import org.springframework.util.StringUtils
 import org.springframework.web.filter.OncePerRequestFilter
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest

@@ -1,4 +1,4 @@
-package com.beproud.config.filter
+package com.beproud.auth
 
 import mu.KotlinLogging
 

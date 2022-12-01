@@ -10,18 +10,3 @@ import org.springframework.stereotype.Service
 
 private val logger = KotlinLogging.logger {}
 
-@Service
-class CustomUserDetailsService(
-    private val userDomainService: UserDomainService
-) : UserDetailsService {
-    override fun loadUserByUsername(walletAddress: String): UserDetails {
-        logger.info { "loadUserByUsername -> walletAddress: $walletAddress" }
-        val user = userDomainService.getUser(walletAddress) ?: throw Exception("not exist user")
-        return UserPrincipal.create(user)
-    }
-
-    fun loadUserById(id: Long): UserDetails {
-        val user = userDomainService.findById(id) ?: throw UsernameNotFoundException("User not found with id: $id")
-        return UserPrincipal.create(user)
-    }
-}

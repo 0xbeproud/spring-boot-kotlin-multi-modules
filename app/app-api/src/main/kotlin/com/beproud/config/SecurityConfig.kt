@@ -1,7 +1,7 @@
 package com.beproud.config
 
-import com.beproud.appapi.user.CustomUserDetailsService
-import com.beproud.config.auth.JwtTokenProvider
+import com.beproud.auth.CustomUserDetailsService
+import com.beproud.auth.JwtTokenProvider
 import com.beproud.config.filter.JwtAuthenticationFilter
 import mu.KotlinLogging
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest
@@ -29,20 +29,6 @@ class SecurityConfig(
     private val tokenProvider: JwtTokenProvider
 ) {
 
-//    @Bean
-//    fun passwordEncoder(): PasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder()
-
-//    @Bean
-//    @Order(0)
-//    @Throws(Exception::class)
-//    fun resources(http: HttpSecurity): SecurityFilterChain? {
-//        return http.requestMatchers { matchers: HttpSecurity.RequestMatcherConfigurer ->
-//            matchers.antMatchers(HttpMethod.GET, "/api/v1/creators")
-//        }.authorizeHttpRequests { authorize ->
-//            authorize.anyRequest().permitAll()
-//        }.requestCache { it.disable() }.securityContext { it.disable() }.sessionManagement { it.disable() }.build()
-//    }
-
     @Bean
     @Throws(Exception::class)
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
@@ -55,7 +41,6 @@ class SecurityConfig(
 //            .addFilterBefore(jwtAuthenticationFilter(userDetailsService,))
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .authorizeRequests {
-//                it.anyRequest().permitAll()
                 it.antMatchers("/api/v1/connect/**").permitAll()
                     .anyRequest().authenticated()
             }
@@ -71,55 +56,14 @@ class SecurityConfig(
     fun webSecurityCustomizer(): WebSecurityCustomizer {
         return WebSecurityCustomizer { web: WebSecurity ->
             web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations())
+                .antMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**")
+
         }
     }
-
-//    @Bean
-//    fun authenticationProvider(): DaoAuthenticationProvider {
-//        val authProvider = DaoAuthenticationProvider()
-//        authProvider.setUserDetailsService(userDetailsService)
-//        authProvider.setPasswordEncoder(passwordEncoder())
-//        return authProvider
-//    }
 
     @Bean
     @Throws(java.lang.Exception::class)
     fun authenticationManager(authConfiguration: AuthenticationConfiguration): AuthenticationManager {
         return authConfiguration.authenticationManager
     }
-
-    //
-//    @Bean
-//    fun jwtAuthenticationConverter(): JwtAuthenticationConverter? {
-//        val grantedAuthoritiesConverter = JwtGrantedAuthoritiesConverter()
-//
-//        //change the prefix
-//        grantedAuthoritiesConverter.setAuthorityPrefix("ROLE_")
-//
-//        //change the default claim name. default claim is "scope", "scp"
-//        grantedAuthoritiesConverter.setAuthoritiesClaimName("name")
-//        val jwtAuthenticationConverter = JwtAuthenticationConverter()
-//        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter)
-//        return jwtAuthenticationConverter
-//    }
-//
-//    /**
-//     * Asisgn a custom JwtDecoder with RestOperation instance to provide a custom timeout.
-//     */
-//    @Bean
-//    fun jwtDecoder(restTemplateBuilder: RestTemplateBuilder): JwtDecoder? {
-//        val restOperations = restTemplateBuilder
-//            .setConnectTimeout(Duration.ofSeconds(90))
-//            .setReadTimeout(Duration.ofSeconds(90))
-//            .build()
-//        val nimbusJwtDecoder = NimbusJwtDecoder
-//            .withJwkSetUri(jwkSetUri)
-//            .restOperations(restOperations)
-//            .build()
-//        val clockSkew: OAuth2TokenValidator<Jwt> =
-//            DelegatingOAuth2TokenValidator<AbstractOAuth2Token>(JwtTimestampValidator(Duration.ofSeconds(60)))
-//        nimbusJwtDecoder.setJwtValidator(clockSkew)
-//        return nimbusJwtDecoder
-//    }
-
 }

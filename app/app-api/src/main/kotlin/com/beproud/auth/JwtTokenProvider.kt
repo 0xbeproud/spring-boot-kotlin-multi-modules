@@ -1,4 +1,4 @@
-package com.beproud.config.auth
+package com.beproud.auth
 
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
